@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="padding">
+  <form #form="ngForm" (ngSubmit)="login(form)">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col
+          class="ion-align-self-center"
+          size-md="6"
+          size-lg="8"
+          size-xs="12"
+        >
+          <div class="ion-text-center">
+            <h3>Login</h3>
+          </div>
+          <div class="ion-padding">
+            <ion-item>
+              <ion-label position="floating">Label</ion-label>
+              <ion-input name="email" type="email" ngModel required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Floating Label</ion-label>
+              <ion-input
+                name="password"
+                type="password"
+                ngModel
+                required
+              ></ion-input>
+            </ion-item>
+          </div>
+          <div>
+            <ion-button
+              size="large"
+              type="submit"
+              [disabled]="form.invalid"
+              expand="block"
+              (ngClick)="presentAlert()"
+              >Login</ion-button
+            >
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size-md="6" size-lg="8" size-xs="12">
+          <div class="ion-text-center">
+            If you don't have an account, please
+            <a routerLink="/register"> register</a> first!
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
