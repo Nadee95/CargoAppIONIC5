@@ -1,5 +1,15 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, NgZone } from "@angular/core";
 import { AlertController } from "@ionic/angular";
+import { Router } from "@angular/router";
+import { RegisterService } from "../../services/register.service";
+import { MustMatch } from "../../services/must-match";
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators
+} from "@angular/forms";
+import { SignupDTO } from "src/app/dto/SignupDTO";
 
 @Component({
   selector: "app-register",
@@ -7,17 +17,82 @@ import { AlertController } from "@ionic/angular";
   styleUrls: ["./register.page.scss"]
 })
 export class RegisterPage implements OnInit {
-  constructor(private alertController: AlertController) {}
+  userDto: FormGroup;
+  user: SignupDTO;
+  submitted = false;
+  constructor(
+    private router: Router,
+    private alertController: AlertController,
+    public fb: FormBuilder,
+    private zone: NgZone,
+    private registerService: RegisterService
+  ) {
+    this.userDto = fb.group(
+      {
+        email: new FormControl("email", [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.email
+        ]),
+        username: new FormControl("", [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50)
+        ]),
+        name: new FormControl("", [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50)
+        ]),
+        password: new FormControl("", [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(50)
+        ]),
+        confirmPassword: new FormControl("", [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(50)
+        ])
+      },
+      {
+        validator: MustMatch("password", "confirmPassword")
+      }
+    );
+  }
 
   ngOnInit() {}
 
-  register() {}
+  register() {
+    this.user = new SignupDTO(
+      this.userDto.value.name,
+      this.userDto.value.username,
+      this.userDto.value.email,
+      this.userDto.value.password
+    );
+    this.submitted = true;
+    this.registerService.register(this.user).subscribe(
+      res => {
+        console.log(res);
+        this.router.navigate(["/login"]);
+      },
+      error => {
+        console.log(error);
+        this.presentAlert(error);
+      }
+    );
+    //alert("SUCCESS!! :-)\n\n" + JSON.stringify(this.userDto.value));
+  }
 
-  async presentAlert() {
+  get f() {
+    return this.userDto.controls;
+  }
+
+  async presentAlert(res) {
     const alert = await this.alertController.create({
       header: "Alert",
-      subHeader: "Subtitle",
-      message: "This is an alert message.",
+      subHeader: res.status + " " + res.statusText,
+      message: res.error,
       buttons: ["OK"]
     });
     await alert.present();

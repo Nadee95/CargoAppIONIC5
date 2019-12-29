@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content class="padding">
-  <form #form="ngForm" (ngSubmit)="login(form)">
+  <form [formGroup]="form" (ngSubmit)="onFormSubmit()">
     <ion-grid>
       <ion-row class="ion-justify-content-center">
         <ion-col
@@ -19,13 +19,18 @@
           </div>
           <div class="ion-padding">
             <ion-item>
-              <ion-label position="floating">Label</ion-label>
-              <ion-input name="email" type="email" ngModel required></ion-input>
+              <ion-label position="floating">EMAIL</ion-label>
+              <ion-input
+                formControlName="email"
+                type="email"
+                ngModel
+                required
+              ></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label position="floating">Floating Label</ion-label>
+              <ion-label position="floating">PASSWORD</ion-label>
               <ion-input
-                name="password"
+                formControlName="password"
                 type="password"
                 ngModel
                 required
@@ -38,7 +43,6 @@
               type="submit"
               [disabled]="form.invalid"
               expand="block"
-              (ngClick)="presentAlert()"
               >Login</ion-button
             >
           </div>
