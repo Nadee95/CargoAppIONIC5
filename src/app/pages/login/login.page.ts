@@ -46,7 +46,10 @@ export class LoginPage implements OnInit {
     this.loginService.login(this.form.value).subscribe(
       res => {
         this.zone.run(() => {
-          //this.form.reset();
+          this.form.reset();
+          this.router.navigate(["/profile"], {
+            queryParams: { registered: true }
+          });
         });
       },
       error => {
