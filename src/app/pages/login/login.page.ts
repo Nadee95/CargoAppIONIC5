@@ -9,6 +9,7 @@ import {
   Validators
 } from "@angular/forms";
 import { LoginService } from "../../services/login.service";
+import { AuthService } from "src/app/services/auth.service";
 @Component({
   selector: "app-login",
   templateUrl: "./login.page.html",
@@ -16,6 +17,7 @@ import { LoginService } from "../../services/login.service";
 })
 export class LoginPage implements OnInit {
   form: FormGroup;
+
   // @ViewChild('form') form:NgForm;
 
   ngOnInit(): void {
@@ -26,7 +28,8 @@ export class LoginPage implements OnInit {
     private alertController: AlertController,
     private loginService: LoginService,
     public fb: FormBuilder,
-    private zone: NgZone
+    private zone: NgZone,
+    private auth: AuthService
   ) {
     this.form = this.fb.group({
       email: new FormControl("", [
@@ -42,14 +45,27 @@ export class LoginPage implements OnInit {
     });
   }
 
-  onFormSubmit(): void {
-    this.loginService.login(this.form.value).subscribe(
+  // onFormSubmit() {
+  //   this.loginService.login(this.form.value).subscribe(
+  //     res => {
+  //       this.zone.run(() => {
+  //         this.form.reset();
+  //         this.router.navigate(["/profile"]); //can add query params
+  //       });
+  //     },
+  //     error => {
+  //       this.presentAlert(error);
+  //     }
+  //   );
+  // }
+
+  async onFormSubmit() {
+    (await this.auth.login(this.form.value)).subscribe(
       res => {
+        //console.log(res);
         this.zone.run(() => {
           this.form.reset();
-          this.router.navigate(["/profile"], {
-            queryParams: { registered: true }
-          });
+          this.router.navigate(["/profile"]); //can add query params
         });
       },
       error => {
@@ -57,7 +73,23 @@ export class LoginPage implements OnInit {
       }
     );
   }
+  /////////////////////////
+  // login() {
+  //   this.auth.login(this.form.value).subscribe(async res => {
+  //     if (res) {
+  //       this.router.navigateByUrl('/members');
+  //     } else {
+  //       const alert = await this.alertController.create({
+  //         header: 'Login Failed',
+  //         message: 'Wrong credentials.',
+  //         buttons: ['OK']
+  //       });
+  //       await alert.present();
+  //     }
+  //   });
+  // }
 
+  //////////////////////////////
   async presentAlert(res) {
     const alert = await this.alertController.create({
       header: "Alert",

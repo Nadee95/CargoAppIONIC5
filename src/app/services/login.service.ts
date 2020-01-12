@@ -13,8 +13,10 @@ export class LoginService {
 
   login(credentials): Observable<any> {
     // console.log(credentials);
-    return this.http
-      .post("http://localhost:3000/users/login", credentials, this.httpOptions)
-      .pipe();
+    return this.http.post(
+      "http://localhost:3000/users/login",
+      credentials,
+      this.httpOptions
+    ); //pipe romoved
   }
 }

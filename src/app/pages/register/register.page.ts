@@ -7,7 +7,8 @@ import {
   FormGroup,
   FormBuilder,
   FormControl,
-  Validators
+  Validators,
+  FormArray
 } from "@angular/forms";
 import { SignupDTO } from "src/app/dto/SignupDTO";
 
@@ -18,6 +19,7 @@ import { SignupDTO } from "src/app/dto/SignupDTO";
 })
 export class RegisterPage implements OnInit {
   userDto: FormGroup;
+  phoneIndex = 0;
   user: SignupDTO;
   submitted = false;
   constructor(
@@ -44,6 +46,7 @@ export class RegisterPage implements OnInit {
           Validators.minLength(3),
           Validators.maxLength(50)
         ]),
+        phone: this.fb.array([this.fb.group({ phone: "" })]),
         password: new FormControl("", [
           Validators.required,
           Validators.minLength(6),
@@ -68,6 +71,7 @@ export class RegisterPage implements OnInit {
       this.userDto.value.name,
       this.userDto.value.username,
       this.userDto.value.email,
+      this.userDto.value.phone,
       this.userDto.value.password
     );
     this.submitted = true;
@@ -86,6 +90,19 @@ export class RegisterPage implements OnInit {
 
   get f() {
     return this.userDto.controls;
+  }
+
+  get phones() {
+    return this.userDto.get("phone") as FormArray;
+  }
+
+  addPhone() {
+    this.phoneIndex++;
+    this.phones.push(this.fb.group({ phone: "" }));
+  }
+  deletePhone(index) {
+    this.phoneIndex--;
+    this.phones.removeAt(index);
   }
 
   async presentAlert(res) {

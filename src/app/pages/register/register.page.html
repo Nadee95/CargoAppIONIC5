@@ -45,8 +45,44 @@
                 required
               ></ion-input>
             </ion-item>
+            <div class="phoneDiv" formArrayName="phone">
+              <div
+                *ngFor="let item of phones.controls; let phoneIndex=index; first as f;"
+                [formGroupName]="phoneIndex"
+              >
+                <ion-item>
+                  <ion-label position="floating"
+                    >PHONE {{phoneIndex+1}}</ion-label
+                  >
+
+                  <ion-input
+                    class="ion-float-left"
+                    formControlName="phone"
+                    type="number"
+                    ngModel
+                    required
+                  ></ion-input>
+                  <ion-button
+                    *ngIf="!f"
+                    slot="end"
+                    color="danger"
+                    type="button"
+                    (click)="deletePhone(phoneIndex)"
+                  >
+                    Remove
+                  </ion-button>
+                </ion-item>
+              </div>
+              <ion-button
+                size="small"
+                color="secondary"
+                type="button"
+                (click)="addPhone()"
+                >Add number</ion-button
+              >
+            </div>
             <ion-item>
-              <ion-label position="floating">Password</ion-label>
+              <ion-label position="floating">PASSWORD</ion-label>
               <ion-input
                 formControlName="password"
                 type="password"
@@ -55,7 +91,7 @@
               ></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label position="floating">Confirm Password</ion-label>
+              <ion-label position="floating">CONFIRM PASSWORD</ion-label>
               <ion-input
                 formControlName="confirmPassword"
                 type="password"
@@ -72,10 +108,11 @@
               expand="block"
               >Register</ion-button
             >
-            <a routerLink="/profile"> profile</a>
+            <!-- <a routerLink="/profile"> profile</a> -->
           </div>
         </ion-col>
       </ion-row>
     </ion-grid>
   </form>
+  {{this.userDto.value | json}}
 </ion-content>

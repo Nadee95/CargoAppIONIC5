@@ -5,6 +5,7 @@ import {
   FormControl,
   Validators
 } from "@angular/forms";
+import { AuthService } from "src/app/services/auth.service";
 
 @Component({
   selector: "app-profile",
@@ -12,30 +13,17 @@ import {
   styleUrls: ["./profile.page.scss"]
 })
 export class ProfilePage implements OnInit {
-  registerForm: FormGroup;
-  submitted = false;
+  user = null;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private auth: AuthService) {}
 
-  ngOnInit() {
-    this.registerForm = this.formBuilder.group({
-      firstName: ["", Validators.required]
-    });
+  ionViewWillEnter() {
+    this.user = this.auth.getUser();
   }
 
-  // convenience getter for easy access to form fields
-  get f() {
-    return this.registerForm.controls;
+  logout() {
+    this.auth.logout();
   }
 
-  onSubmit() {
-    this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.registerForm.invalid) {
-      return;
-    }
-
-    alert("SUCCESS!! :-)\n\n" + JSON.stringify(this.registerForm.value));
-  }
+  ngOnInit() {}
 }

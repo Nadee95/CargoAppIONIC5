@@ -12,6 +12,7 @@ export class RegisterService {
   constructor(private http: HttpClient) {}
 
   register(userDto): Observable<any> {
+    console.log(userDto);
     return this.http
       .post("http://localhost:3000/users/register", userDto, this.httpOptions)
       .pipe();
