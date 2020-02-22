@@ -70,6 +70,7 @@ export class LoginPage implements OnInit {
       },
       error => {
         this.presentAlert(error);
+        console.log(error);
       }
     );
   }

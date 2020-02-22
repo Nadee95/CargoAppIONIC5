@@ -17,6 +17,7 @@ var TOKEN_KEY = "jwt-token";
 export class AuthService {
   public user: Observable<any>;
   private userData = new BehaviorSubject(null);
+  private userToken = new BehaviorSubject(null);
 
   constructor(
     private storage: Storage,
@@ -25,6 +26,7 @@ export class AuthService {
     private router: Router,
     private loginService: LoginService
   ) {
+
     this.loadStoredToken();
   }
 
@@ -33,11 +35,12 @@ export class AuthService {
 
     this.user = platformObs.pipe(
       switchMap(() => {
-        return from(this.storage.get(TOKEN_KEY));
+        return from(this.storage.get("jwt-token"));
       }),
       map(token => {
         if (token) {
           let decoded = helper.decodeToken(token);
+          this.userToken.next(token);//store token
           this.userData.next(decoded);
           return true;
         } else {
@@ -66,7 +69,8 @@ export class AuthService {
         switchMap(token => {
           let decoded = helper.decodeToken(token);
           this.userData.next(decoded);
-          let storageObs = from(this.storage.set(TOKEN_KEY, token));
+          let storageObs = from(this.storage.set("jwt-token", token));
+          console.log(TOKEN_KEY);
           return storageObs;
         })
       );
@@ -74,6 +78,7 @@ export class AuthService {
 
   getUser() {
     return this.userData.getValue();
+
   }
 
   logout() {
@@ -81,5 +86,9 @@ export class AuthService {
       this.router.navigateByUrl("/");
       this.userData.next(null);
     });
+  }
+
+  getToken() {
+    return this.userToken.getValue();
   }
 }

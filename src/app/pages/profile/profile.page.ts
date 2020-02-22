@@ -15,7 +15,7 @@ import { AuthService } from "src/app/services/auth.service";
 export class ProfilePage implements OnInit {
   user = null;
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService) { }
 
   ionViewWillEnter() {
     this.user = this.auth.getUser();
@@ -25,5 +25,9 @@ export class ProfilePage implements OnInit {
     this.auth.logout();
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+  go() {
+    //
+  }
 }
