@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>make Request</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+  <app-map *ngIf="map1" (newItemEvent)="fillValue1($event)"></app-map>
+  <div>
+    <ion-label>start location {{startLocation}} </ion-label>
+    <ion-button (click)="setMap1()">{{button1}}</ion-button>
+  </div>
+
+
+
+  <app-map *ngIf="map2" (newItemEvent)="fillValue2($event)"></app-map>
+  <div>
+    <ion-label>end location {{endLocation}}</ion-label>
+    <ion-button (click)="setMap2()">{{button1}}</ion-button>
+  </div>
+
+
+
+
+
+
+
+
+</ion-content>

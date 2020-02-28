@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>addDriver</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <ion-list>
+        <ion-item>
+          <div class="form-group">
+            <ion-label>Age of the Driver</ion-label>
+            <ion-input type="text" class="form-control" formControlName="age"></ion-input>
+            <span color="text-danger"
+              *ngIf="(registerFormControl.age.touched || submitted) && registerFormControl.age.errors?.required">
+              Age is required
+            </span>
+          </div>
+        </ion-item>
+        <ion-item>
+          <div class="form-group">
+            <ion-label>Driving Licence Number</ion-label>
+            <ion-input type="text" class="form-control" formControlName="licence_no"></ion-input>
+            <span class="text-danger"
+              *ngIf="(registerFormControl.licence_no.touched || submitted) && registerFormControl.licence_no.errors?.required">
+              Licence Number is required
+            </span>
+          </div>
+        </ion-item>
+      </ion-list>
+
+      <div class="form-group">
+        <ion-button class="form-control" type="submit">Register</ion-button>
+      </div>
+    </form>
+  </ion-card>
+
+</ion-content>

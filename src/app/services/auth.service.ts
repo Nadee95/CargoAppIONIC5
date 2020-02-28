@@ -10,6 +10,7 @@ import { LoginService } from "./login.service";
 
 const helper = new JwtHelperService();
 var TOKEN_KEY = "jwt-token";
+var userob: any;
 
 @Injectable({
   providedIn: "root"
@@ -70,7 +71,6 @@ export class AuthService {
           let decoded = helper.decodeToken(token);
           this.userData.next(decoded);
           let storageObs = from(this.storage.set("jwt-token", token));
-          console.log(TOKEN_KEY);
           return storageObs;
         })
       );
@@ -80,6 +80,7 @@ export class AuthService {
     return this.userData.getValue();
 
   }
+
 
   logout() {
     this.storage.remove(TOKEN_KEY).then(() => {

@@ -19,6 +19,22 @@ const routes: Routes = [
     loadChildren: () =>
       import("./pages/profile/profile.module").then(m => m.ProfilePageModule),
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'upload-modal',
+    loadChildren: () => import('./pages/upload-modal/upload-modal.module').then(m => m.UploadModalPageModule)
+  },
+  {
+    path: 'edit-profile',
+    loadChildren: () => import('./pages/edit-profile/edit-profile.module').then(m => m.EditProfilePageModule)
+  },
+  {
+    path: 'add-driver',
+    loadChildren: () => import('./pages/add-driver/add-driver.module').then(m => m.AddDriverPageModule)
+  },
+  {
+    path: 'make-request',
+    loadChildren: () => import('./pages/make-request/make-request.module').then(m => m.MakeRequestPageModule)
   }
 ];
 
@@ -28,4 +44,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

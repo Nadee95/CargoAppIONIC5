@@ -9,7 +9,7 @@ export class LoginService {
   httpOptions = {
     headers: new HttpHeaders({ "Content-Type": "application/json" })
   };
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   login(credentials): Observable<any> {
     // console.log(credentials);

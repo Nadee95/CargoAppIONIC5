@@ -12,7 +12,7 @@ export class TokenInterceptorService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const idToken = this.authService.getToken().toString();
+    const idToken = this.authService.getToken();
 
     if (idToken) {
       const cloned = req.clone({

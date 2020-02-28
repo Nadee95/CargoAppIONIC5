@@ -10,6 +10,7 @@ import { ProfilePage } from "./profile.page";
 
 import { ReactiveFormsModule } from "@angular/forms";
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -20,4 +21,4 @@ import { ReactiveFormsModule } from "@angular/forms";
   ],
   declarations: [ProfilePage]
 })
-export class ProfilePageModule {}
+export class ProfilePageModule { }

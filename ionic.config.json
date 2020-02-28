@@ -1,7 +1,8 @@
 {
   "name": "CargoAppProject",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }

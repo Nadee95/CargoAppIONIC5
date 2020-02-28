@@ -1,0 +1,17 @@
+<ion-content>
+  <ion-item>
+    <ion-label floating>Enter Address</ion-label>
+    <input id="txtHome" #txtHome type="text">
+  </ion-item>
+
+  <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+  </agm-map>
+
+  <ion-item class="align-content-lg-end">
+    <ion-button expand="full" (click)="submit(txtHome.value)">ADD PLACE</ion-button>
+    <ion-button slot="end" expand="full" color="danger" (click)="submit('')"> CANCEL </ion-button>
+  </ion-item>
+
+
+</ion-content>

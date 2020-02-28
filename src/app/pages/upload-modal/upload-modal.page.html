@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons start>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Upload Image</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <img *ngIf="data" [src]="data" alt="image-preview">
+  <input style="display: none" type="file" (change)="uploadFromBrowser($event)" #fileInput>
+  <ion-button (click)="fileInput.click()">Select File</ion-button>
+  <!-- <button>
+    <ion-icon class="icon-only" name="cloud-upload-outline"></ion-icon>
+    <ion-input #inputid type="file" (change)="uploadFromBrowser($event)"></ion-input>
+  </button> -->
+
+  <!-- <img [src]="data" style="width: 100%"> -->
+  <!-- <ion-item>
+    <ion-input placeholder="My Awesome Image"></ion-input>
+  </ion-item> -->
+
+  <ion-button full (click)="saveImage()">
+    <ion-icon name="checkmark"></ion-icon>
+    Save & Upload Image
+  </ion-button>
+</ion-content>
