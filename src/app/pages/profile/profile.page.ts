@@ -28,7 +28,7 @@ export class ProfilePage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.user = this.auth.getUser();
+
 
   }
 
@@ -36,10 +36,14 @@ export class ProfilePage implements OnInit {
     this.auth.logout();
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.user = this.auth.getUser();
+  }
 
   reloadImages() {
     this.profileService.getImage().subscribe(data => {
+
+      this.user = this.auth.getUser();
       this.image = data;
     });
   }

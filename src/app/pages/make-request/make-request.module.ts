@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { IonicModule } from '@ionic/angular';
 
 import { MakeRequestPageRoutingModule } from './make-request-routing.module';
@@ -18,6 +18,7 @@ import { AgmCoreModule } from '@agm/core';
     CommonModule,
     FormsModule,
     IonicModule,
+    ReactiveFormsModule,
     MakeRequestPageRoutingModule,
     AgmCoreModule
   ],

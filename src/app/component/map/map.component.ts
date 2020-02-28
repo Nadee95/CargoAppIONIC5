@@ -87,13 +87,12 @@ export class MapComponent implements OnInit {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
         this.zoom = 12;
-        console.log(position);
       });
     }
   }
 
   submit(value: string) {
-    console.log(value);
+    this.setCurrentPosition();
     let obj = new MapData(this.latitude, this.longitude, value);
     this.newItemEvent.emit(obj);
   }

@@ -11,7 +11,14 @@
   <ion-card>
     <ion-img class="card-img-top" [src]="image" alt="Card image cap"></ion-img>
 
-    <div *ngIf="user" class="card-title">{{user.username}}</div>
+    <div *ngIf="user" class="card-title">
+      <ion-chip color="light">
+        <ion-avatar>
+          <img *ngIf="user.imgURL" [src]="user.imgURL">
+        </ion-avatar>
+        <ion-label>{{user.username}}</ion-label>
+      </ion-chip>
+    </div>
     <ion-fab class="ionfab">
       <button ion-fab (click)="presentActionSheet()">
         <ion-icon name="camera"></ion-icon>
@@ -75,7 +82,7 @@
       <ion-button (click)="toUploadPage()">
         UPLOAD PROFILE IMAGE
       </ion-button>
-      <ion-button routerLink="/add-driver" routerDirection="foward">ADD AS DERIVER</ion-button>
+      <ion-button *ngIf="user.role==0" routerLink="/add-driver" routerDirection="foward">ADD AS DERIVER</ion-button>
       <ion-button routerLink="/make-request" routerDirection="foward">make request</ion-button>
     </ion-card-content>
   </ion-card>

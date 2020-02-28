@@ -1,32 +1,106 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>make Request</ion-title>
+    <ion-title>
+      <ion-chip>
+        <ion-avatar>
+          <img *ngIf="user.imgURL" [src]="user.imgURL">
+        </ion-avatar>
+        <ion-label>{{user.username}}</ion-label>
+      </ion-chip><strong> CREATE REQUEST</strong>
+    </ion-title>
   </ion-toolbar>
+
 </ion-header>
 
 <ion-content>
+  <br><br>
 
-
-
+  <div class="ion-padding">
+    <ion-label><strong>Start location:</strong> {{startLocationaddress}} </ion-label>
+    <ion-button class="ion-float-end outline sm" (click)="setMap1()">{{button1}}</ion-button>
+  </div>
   <app-map *ngIf="map1" (newItemEvent)="fillValue1($event)"></app-map>
-  <div>
-    <ion-label>start location {{startLocation}} </ion-label>
-    <ion-button (click)="setMap1()">{{button1}}</ion-button>
+
+  <br><br>
+
+  <div class="ion-padding">
+    <ion-label><strong>End location:</strong> {{endLocationaddress}}</ion-label>
+    <ion-button class="ion-float-end" (click)="setMap2()">{{button2}}</ion-button>
   </div>
-
-
-
   <app-map *ngIf="map2" (newItemEvent)="fillValue2($event)"></app-map>
+  <br><br>
+
+  <div class="form" [formGroup]="driverForm" (ngSubmit)="onSubmit()">
+
+    <ion-item>
+      <div class="form-group">
+        <ion-label>Weight</ion-label>
+        <ion-input type="text" placeholder="in Kilograms" class="form-control" formControlName="weight"></ion-input>
+        <!-- <span color="text-danger" *ngIf="( submitted) && driverForm.weight.errors?.required">
+            weight is required
+          </span> -->
+      </div>
+    </ion-item>
+    <br>
+    <ion-item>
+      <div class="form-group">
+        <ion-label>Volume</ion-label>
+        <ion-input placeholder="in cubic meters" type="text" class="form-control" formControlName="volume">
+        </ion-input>
+        <!-- <span color="text-danger" *ngIf="( submitted) && driverForm.volume.errors?.required">
+          volume is required
+          </span> -->
+      </div>
+    </ion-item>
+    <br>
+    <ion-item>
+      <div class="form-group">
+        <ion-label>Type</ion-label>
+        <ion-input placeholder="Ex- Books/Woods" type="text" class="form-control" formControlName="type">
+        </ion-input>
+        <!-- <span color="text-danger" *ngIf="( submitted) && driverForm.type.errors?.required">
+          volume is required
+          </span> -->
+      </div>
+    </ion-item>
+    <br>
+    <ion-item>
+      <div class="form-group">
+        <ion-label>Select trnsport type</ion-label>
+        <ion-segment (ionChange)="segmentChanged($event)">
+          <ion-segment-button value="fragile">
+            <ion-label>fragile</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="sensitive">
+            <ion-label>sensitive</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="normal">
+            <ion-label>normal</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="hard">
+            <ion-label>hard</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+    </ion-item>
+
+  </div>
+  <br>
   <div>
-    <ion-label>end location {{endLocation}}</ion-label>
-    <ion-button (click)="setMap2()">{{button1}}</ion-button>
+    <ion-item>
+      <ion-label>Due Time</ion-label>
+      <ion-datetime [(ngModel)]="day" displayFormat="D MMM YYYY H:mm" min="2010" max="2040" value="2020-02-17T11:06Z">
+      </ion-datetime>
+    </ion-item>
   </div>
 
-
-
-
-
-
+  <div class=" ion-padding">
+    <ion-button class="form-control ion-align-left" color="danger" (click)="Cancel()" type="submit">Cancel
+      Request
+    </ion-button>
+    <ion-button class="form-control" (click)="onSubmit()" type="submit">Submit Request
+    </ion-button>
+  </div>
 
 
 </ion-content>

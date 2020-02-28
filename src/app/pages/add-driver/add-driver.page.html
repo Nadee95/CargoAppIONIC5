@@ -1,6 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>addDriver</ion-title>
+    <ion-title>
+      <ion-chip>
+        <ion-avatar>
+          <img *ngIf="user.imgURL" [src]="user.imgURL">
+        </ion-avatar>
+        <ion-label>{{user.username}}</ion-label>
+      </ion-chip>REGISTER AS A DRIVER
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 

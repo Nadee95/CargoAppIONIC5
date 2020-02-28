@@ -14,7 +14,9 @@ export class AddDriverPage implements OnInit {
   registerForm: FormGroup;
   submitted = false;
   user: any;
-  constructor(private auth: AuthService, private driverService: DriverService, private fb: FormBuilder) { }
+  constructor(private auth: AuthService, private driverService: DriverService, private fb: FormBuilder) {
+
+  }
 
   ngOnInit() {
     this.user = this.auth.getUser();
@@ -26,7 +28,7 @@ export class AddDriverPage implements OnInit {
   }
 
   registerAsDrver() {
-    this.driverService.addDriver({ _id:this.user._id,age: this.registerForm.value.age, licence_no: this.registerForm.value.licence_no })
+    this.driverService.addDriver({ _id: this.user._id, age: this.registerForm.value.age, licence_no: this.registerForm.value.licence_no })
   }
 
   get registerFormControl() {
